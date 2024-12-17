@@ -8,12 +8,19 @@ WebSockets are a technology that enables bidirectional communication between a c
 Here is how WebSocket communication works:
 
     Client → Server
+    
 The client initiates a connection to the server by sending an HTTPS WebSocket handshake request.
+
     Server → Client
+    
 The server responds to the handshake with the status code 101 Switching Protocols.
+
     Server → Client
+    
 The server sends messages to the client.
+
     Client → Server
+    
 The client closes the WebSocket connection when the communication ends.
 
 This exploitation mentions paying attention to the "origin", which suggests that the Origin header plays a key role here. This header can help validate requests and prevent unwanted interactions.
@@ -36,28 +43,28 @@ To test the server's handling of the Origin header, we can try sending modified 
 # Testing Scenarios
 Here are some example tests to explore the server's validation of the origin header:
 
-Test 1: Valid Origin
+Test 1: Valid Origin.
  We send the default request with the legitimate Origin header:
 
       Origin: http://example.com
 
  Expected result: The server should accept the request.
 
-Test 2: Missing Origin
+Test 2: Missing Origin.
  We attempt the request without an Origin header:
 
       Origin:
 
  Expected result: The server might reject the handshake, depending on its security policies.
 
-Test 3: Malicious Origin
+Test 3: Malicious Origin.
  We intentionally modify the Origin header to an external or malicious domain:
 
       Origin: http://malicious-site.com
 
  Expected result: A secure server should reject the request. If the handshake still succeeds, this indicate a lack of      strict validation.
 
-Test 4: Random or Invalid Origin
+Test 4: Random or Invalid Origin.
  We send a completely invalid or malformed origin:
 
       Origin: invalid-origin
